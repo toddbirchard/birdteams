@@ -47,6 +47,9 @@ html {
             font-size: 5em;
             color: white;
             text-shadow: 1px 1px 0 #1e222f, -1px -1px 0 #1e222f, -1px 1px 0 #1e222f, 1px -1px 0 #1e222f;
+            @media(max-width: @mobile-breakpoint) {
+              font-size: 3em;
+            }
         }
 
       p {
@@ -56,6 +59,9 @@ html {
         color: white;
         text-shadow: 1px 1px 0 #1e222f, -1px -1px 0 #1e222f, -1px 1px 0 #1e222f, 1px -1px 0 #1e222f;
         margin: 0 auto;
+        @media(max-width: @mobile-breakpoint) {
+          font-size: 1.2em;
+        }
       }
     }
   }
