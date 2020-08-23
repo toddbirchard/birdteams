@@ -13,7 +13,10 @@ import (
 // Compile and minify .LESS files
 func CompileStylesheets() {
 	staticFolder := "./static/styles/%s"
-	err := less.RenderFile(fmt.Sprintf(staticFolder, "style.less"), fmt.Sprintf(staticFolder, "style.css"), map[string]interface{}{"compress": true})
+	err := less.RenderFile(
+		fmt.Sprintf(staticFolder, "style.less"),
+		fmt.Sprintf(staticFolder, "style.css"),
+		map[string]interface{}{"compress": true})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -21,12 +24,12 @@ func CompileStylesheets() {
 
 // Dynamic template values
 type HomeMetaData struct {
-	Title      string
-	TagLine    string
-	SiteUrl    string
-	ShareImage string
-	MainImage  string
-	Icon       string
+	Title        string
+	TagLine      string
+	SiteUrl      string
+	ShareImage   string
+	Background   string
+	Icon         string
 }
 
 // Render homepage template
@@ -36,8 +39,8 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		Title:      "Bird Teams",
 		TagLine:    "Let's go Bird Teams",
 		SiteUrl:    "https://birdteams.org/",
-		ShareImage: "/static/img/penguin-share@2x.jpg",
-		MainImage:  "/static/img/antipenguin@2x.png",
+		ShareImage: "/static/img/birdteams-share@2x.jpg",
+		Background: "/static/img/background@2x.jpg",
 		Icon:       "/static/img/favicon.png",
 	}
 	_ = tmpl.Execute(w, data)

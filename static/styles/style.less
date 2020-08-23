@@ -23,6 +23,9 @@ html {
     margin: auto;
     background: white;
     position: relative;
+    background-image: url('/static/img/background@2x.jpg');
+    background-size: cover;
+    background-position: center;
 
     header {
         display: block;
@@ -37,8 +40,23 @@ html {
         text-align: center;
 
         h1 {
-            margin: 0 auto 10px;
+            margin: 0 auto 5px;
+            text-transform: uppercase;
+            line-height: 1;
+            font-family: @header-font;
+            font-size: 5em;
+            color: white;
+            text-shadow: 1px 1px 0 #1e222f, -1px -1px 0 #1e222f, -1px 1px 0 #1e222f, 1px -1px 0 #1e222f;
         }
+
+      p {
+        font-weight: 500;
+        font-size: 1.5em;
+        text-transform: uppercase;
+        color: white;
+        text-shadow: 1px 1px 0 #1e222f, -1px -1px 0 #1e222f, -1px 1px 0 #1e222f, 1px -1px 0 #1e222f;
+        margin: 0 auto;
+      }
     }
   }
 }
