@@ -1,4 +1,4 @@
-module github.com/hackersandslackers/penguintruth
+module github.com/hackersandslackers/birdteams
 
 go 1.14
 

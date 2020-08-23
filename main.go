@@ -33,9 +33,9 @@ type HomeMetaData struct {
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
 	data := HomeMetaData{
-		Title:      "Penguin Truth",
-		TagLine:    "Exposing the facts about penguins and their flightless origins.",
-		SiteUrl:    "https://penguintruth.org/",
+		Title:      "Bird Teams",
+		TagLine:    "Let's go Bird Teams",
+		SiteUrl:    "https://birdteams.org/",
 		ShareImage: "/static/img/penguin-share@2x.jpg",
 		MainImage:  "/static/img/antipenguin@2x.png",
 		Icon:       "/static/img/favicon.png",
@@ -59,7 +59,7 @@ func main() {
 	router := Router()
 	client := &http.Server{
 		Handler:      router,
-		Addr:         "127.0.0.1:9200",
+		Addr:         "127.0.0.1:9300",
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
