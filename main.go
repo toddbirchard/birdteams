@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gorilla/mux"
+	"github.com/hackersandslackers/birdteams/api"
 	"github.com/kib357/less-go"
 	"html/template"
 	"log"
@@ -20,18 +21,6 @@ type SiteMetaData struct {
 	Icon       string
 }
 
-// Compile and minify .LESS files
-func CompileStylesheets() {
-	staticFolder := "./static/styles/%s"
-	err := less.RenderFile(
-		fmt.Sprintf(staticFolder, "style.less"),
-		fmt.Sprintf(staticFolder, "style.css"),
-		map[string]interface{}{"compress": true})
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
 // Render homepage template
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
@@ -46,6 +35,18 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	_ = tmpl.Execute(w, data)
 }
 
+// Compile and minify .LESS files
+func CompileStylesheets() {
+	staticFolder := "./static/styles/%s"
+	err := less.RenderFile(
+		fmt.Sprintf(staticFolder, "style.less"),
+		fmt.Sprintf(staticFolder, "style.css"),
+		map[string]interface{}{"compress": true})
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 // Route declaration
 func Router() *mux.Router {
 	staticDir := "/static/"
@@ -56,10 +57,11 @@ func Router() *mux.Router {
 	return r
 }
 
-// Initiate web server
+// Initiate app
 func main() {
 	CompileStylesheets()
-	GetTwitchToken()
+	api.GetTwitchToken()
+	api.GetStreamByUser()
 
 	router := Router()
 	client := &http.Server{

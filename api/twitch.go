@@ -1,4 +1,4 @@
-package main
+package api
 
 import (
 	"fmt"
@@ -15,6 +15,7 @@ type TwitchData struct {
 	ClientId       string
 	ClientSecret   string
 	UserId         string
+	UserName       string
 }
 
 // Load environment variables
@@ -34,6 +35,7 @@ func GetTwitchData() TwitchData {
 		ClientId:       os.Getenv("TWITCH_CLIENT_ID"),
 		ClientSecret:   os.Getenv("TWITCH_CLIENT_SECRET"),
 		UserId:         os.Getenv("TWITCH_USER_ID"),
+		UserName:       os.Getenv("TWITCH_USER_NAME"),
 	}
 	return twitchData
 }
@@ -45,6 +47,20 @@ func GetTwitchToken() string {
 	token := tokenRes["access_token"].(string)
 	log.Println(token)
 	return token
+}
+
+// Fetch live stream(s) by user login
+func GetStreamByUser() (*http.Request, error) {
+	twitchData := GetTwitchData()
+	requestUrl := fmt.Sprintf(
+		"%s?user_login=%s",
+		twitchData.EndpointStream,
+		twitchData.UserName)
+	req, reqErr := http.NewRequest("GET", requestUrl, nil)
+	if reqErr != nil {
+		return nil, reqErr
+	}
+	return req, nil
 }
 
 // Construct HTTP request to fetch Twitch token
