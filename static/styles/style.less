@@ -44,9 +44,12 @@ html {
             text-transform: uppercase;
             line-height: 1;
             font-family: @header-font;
-            font-size: 5em;
+            font-size: 6em;
             color: white;
             text-shadow: 1px 1px 0 #1e222f, -1px -1px 0 #1e222f, -1px 1px 0 #1e222f, 1px -1px 0 #1e222f;
+            @media(max-width: @tablet-breakpoint) {
+              font-size: 5em;
+            }
             @media(max-width: @mobile-breakpoint) {
               font-size: 3em;
             }
@@ -63,6 +66,10 @@ html {
           font-size: 1.2em;
         }
       }
+    }
+
+    #players {
+      display: none;
     }
   }
 }

@@ -10,6 +10,16 @@ import (
 	"time"
 )
 
+// Dynamic template values
+type SiteMetaData struct {
+	Title      string
+	TagLine    string
+	SiteUrl    string
+	ShareImage string
+	Background string
+	Icon       string
+}
+
 // Compile and minify .LESS files
 func CompileStylesheets() {
 	staticFolder := "./static/styles/%s"
@@ -22,20 +32,10 @@ func CompileStylesheets() {
 	}
 }
 
-// Dynamic template values
-type HomeMetaData struct {
-	Title        string
-	TagLine      string
-	SiteUrl      string
-	ShareImage   string
-	Background   string
-	Icon         string
-}
-
 // Render homepage template
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
-	data := HomeMetaData{
+	data := SiteMetaData{
 		Title:      "Bird Teams",
 		TagLine:    "Let's go Bird Teams",
 		SiteUrl:    "https://birdteams.org/",
@@ -59,6 +59,8 @@ func Router() *mux.Router {
 // Initiate web server
 func main() {
 	CompileStylesheets()
+	GetTwitchToken()
+
 	router := Router()
 	client := &http.Server{
 		Handler:      router,
