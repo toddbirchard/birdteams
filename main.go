@@ -12,25 +12,27 @@ import (
 )
 
 // Dynamic template values
-type SiteMetaData struct {
+type SiteData struct {
 	Title      string
 	TagLine    string
 	SiteUrl    string
 	ShareImage string
 	Background string
 	Icon       string
+	Videos     []api.YoutubeVideo
 }
 
 // Render homepage template
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
-	data := SiteMetaData{
+	data := SiteData{
 		Title:      "Bird Teams",
 		TagLine:    "Let's go Bird Teams",
 		SiteUrl:    "https://birdteams.org/",
 		ShareImage: "/static/img/birdteams-share@2x.jpg",
 		Background: "/static/img/background@2x.jpg",
 		Icon:       "/static/img/favicon.png",
+		Videos:     api.GetYoutubeVideos(),
 	}
 	_ = tmpl.Execute(w, data)
 }

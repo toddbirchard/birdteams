@@ -9,7 +9,7 @@ import (
 )
 
 // Execute an HTTP request with a response
-func ExecuteRequest(request *http.Request) (map[string]interface{}, error) {
+func ExecuteRequest(request *http.Request) map[string]interface{} {
 	// Construct HTTP request to fetch session data.
 	client := HttpClient()
 	res, resError := client.Do(request)
@@ -27,12 +27,13 @@ func ExecuteRequest(request *http.Request) (map[string]interface{}, error) {
 	var responseContainer interface{}
 	err := json.Unmarshal(data, &responseContainer)
 	if err != nil {
-		panic(err)
+		log.Fatalf("Unable to parse JSON: %v", err)
+		return nil
 	}
 
 	// Convert JSON to map
 	response := responseContainer.(map[string]interface{})
-	return response, nil
+	return response
 }
 
 // Generic HTTP client

@@ -42,15 +42,15 @@ func GetTwitchData() TwitchData {
 
 // Get Twitch bearer token
 func GetTwitchToken() string {
-	tokenReq, _ := GetTokenRequest()
-	tokenRes, _ := ExecuteRequest(tokenReq)
+	tokenReq := GetTokenRequest()
+	tokenRes := ExecuteRequest(tokenReq)
 	token := tokenRes["access_token"].(string)
 	log.Println(token)
 	return token
 }
 
 // Fetch live stream(s) by user login
-func GetStreamByUser() (*http.Request, error) {
+func GetStreamByUser() *http.Request {
 	twitchData := GetTwitchData()
 	requestUrl := fmt.Sprintf(
 		"%s?user_login=%s",
@@ -58,13 +58,13 @@ func GetStreamByUser() (*http.Request, error) {
 		twitchData.UserName)
 	req, reqErr := http.NewRequest("GET", requestUrl, nil)
 	if reqErr != nil {
-		return nil, reqErr
+		log.Fatalf("Unable to get Twitch stream by user: %v", reqErr)
 	}
-	return req, nil
+	return req
 }
 
 // Construct HTTP request to fetch Twitch token
-func GetTokenRequest() (*http.Request, error) {
+func GetTokenRequest() *http.Request {
 	twitchData := GetTwitchData()
 	requestUrl := fmt.Sprintf(
 		"%s?grant_type=client_credentials&client_id=%s&client_secret=%s",
@@ -73,7 +73,7 @@ func GetTokenRequest() (*http.Request, error) {
 		twitchData.ClientSecret)
 	req, reqErr := http.NewRequest("POST", requestUrl, nil)
 	if reqErr != nil {
-		return nil, reqErr
+		log.Fatalf("Unable to get Twitch token: %v", reqErr)
 	}
-	return req, nil
+	return req
 }

@@ -48,10 +48,26 @@
 <body>
     <div class="container">
         <header>
-            <h1>{{ .Title }}</h1>
-            <p>{{ .TagLine }}</p>
+            <div>
+                <h1>{{ .Title }}</h1>
+                <p>{{ .TagLine }}</p>
+            </div>
         </header>
         <main>
+            <section id="videos">
+                {{range $index, $video := .Videos}}
+                    <div class="video">
+                        <a href="{{$video.Url}}">
+                            <div class="image-wrapper" style="background-image: url({{$video.Thumbnail}})"></div>
+                            <div class="video-details">
+                                <h5 class="video-title">{{$video.Title}}</h5>
+                                <p class="video-description">{{$video.Description}}</p>
+                            </div>
+                        </a>
+                    </div>
+                {{end}}
+            </section>
+
             <section id="players">
                 <div class="player kik">
                     kik
@@ -63,6 +79,7 @@
                     kik
                 </div>
             </section>
+
         </main>
     </div>
 
