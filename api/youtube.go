@@ -14,11 +14,10 @@ type YoutubeVideo struct {
 	Title          string
 	Description    string
 	Url            string
-	Thumbnail       string
+	Thumbnail      string
 }
 
-
-// Retrieve resource for the authenticated user's channel
+// Retrieve channel by ID
 func getYoutubeChannel(service *youtube.Service, part string) *youtube.ChannelListResponse {
 	channels := []string{part}
 	call := service.Channels.List(channels)
@@ -30,7 +29,7 @@ func getYoutubeChannel(service *youtube.Service, part string) *youtube.ChannelLi
 	return response
 }
 
-// Retrieve playlistItems in the specified playlist
+// Retrieve items in the specified playlist
 func playlistItemsList(service *youtube.Service, part string, playlistId string, pageToken string) *youtube.PlaylistItemListResponse {
 	channels := []string{part}
 	call := service.PlaylistItems.List(channels)
@@ -41,18 +40,16 @@ func playlistItemsList(service *youtube.Service, part string, playlistId string,
 	}
 	response, err := call.Do()
 	if err != nil {
-		panic(err)
+		log.Fatalf("Error when retrieving items from playlist: %v", err.Error())
 	}
 	return response
 }
 
+// Fetch videos from channel
 func getVideosFromChannel(service *youtube.Service, response *youtube.ChannelListResponse) []YoutubeVideo {
 	var videos []YoutubeVideo
 	for _, channel := range response.Items {
 		playlistId := channel.ContentDetails.RelatedPlaylists.Uploads
-
-		// Print the playlist ID for the list of uploaded videos.
-		fmt.Printf("Videos in list %s\r\n", playlistId)
 
 		nextPageToken := ""
 		for {
@@ -80,11 +77,11 @@ func getVideosFromChannel(service *youtube.Service, response *youtube.ChannelLis
 			if nextPageToken == "" {
 				break
 			}
-			fmt.Println()
 		}
 	}
 	return videos
 }
+
 
 func GetYoutubeVideos() []YoutubeVideo {
 	ctx := context.Background()

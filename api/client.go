@@ -2,11 +2,20 @@ package api
 
 import (
 	"encoding/json"
+	"github.com/joho/godotenv"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"time"
 )
+
+// Load environment variables
+func LoadEnv() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+}
 
 // Execute an HTTP request with a response
 func ExecuteRequest(request *http.Request) map[string]interface{} {

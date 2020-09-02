@@ -20,6 +20,7 @@ type SiteData struct {
 	Background string
 	Icon       string
 	Videos     []api.YoutubeVideo
+	Stream     bool
 }
 
 // Render homepage template
@@ -33,8 +34,12 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		Background: "/static/img/background@2x.jpg",
 		Icon:       "/static/img/favicon.png",
 		Videos:     api.GetYoutubeVideos(),
+		Stream:     api.GetTwitchStream(),
 	}
-	_ = tmpl.Execute(w, data)
+	err := tmpl.Execute(w, data)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 // Compile and minify .LESS files
@@ -62,8 +67,8 @@ func Router() *mux.Router {
 // Initiate app
 func main() {
 	CompileStylesheets()
-	api.GetTwitchToken()
-	api.GetStreamByUser()
+	api.LoadEnv()
+	api.GetTwitchStream()
 
 	router := Router()
 	client := &http.Server{
@@ -72,5 +77,6 @@ func main() {
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
+	log.Printf("Server now live and listening at %s...", "127.0.0.1:9300")
 	log.Fatal(client.ListenAndServe())
 }

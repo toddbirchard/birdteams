@@ -2,14 +2,13 @@ package api
 
 import (
 	"fmt"
-	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 	"os"
 )
 
 // Twitch API & account data
-type TwitchData struct {
+type TwitchRequestData struct {
 	EndpointAuth   string
 	EndpointStream string
 	ClientId       string
@@ -18,18 +17,9 @@ type TwitchData struct {
 	UserName       string
 }
 
-// Load environment variables
-func LoadEnv() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-}
-
-// Populate Twitch user's API data
-func GetTwitchData() TwitchData {
-	LoadEnv()
-	twitchData := TwitchData{
+// Populate API data to make Twitch
+func getTwitchRequestData() TwitchRequestData {
+	twitchRequestData := TwitchRequestData{
 		EndpointAuth:   "https://id.twitch.tv/oauth2/token",
 		EndpointStream: "https://api.twitch.tv/helix/streams",
 		ClientId:       os.Getenv("TWITCH_CLIENT_ID"),
@@ -37,21 +27,35 @@ func GetTwitchData() TwitchData {
 		UserId:         os.Getenv("TWITCH_USER_ID"),
 		UserName:       os.Getenv("TWITCH_USER_NAME"),
 	}
-	return twitchData
+	return twitchRequestData
 }
 
 // Get Twitch bearer token
-func GetTwitchToken() string {
-	tokenReq := GetTokenRequest()
+func getTwitchToken() string {
+	tokenReq := getTokenRequest()
 	tokenRes := ExecuteRequest(tokenReq)
 	token := tokenRes["access_token"].(string)
-	log.Println(token)
 	return token
 }
 
+// Construct HTTP request to fetch Twitch token
+func getTokenRequest() *http.Request {
+	twitchData := getTwitchRequestData()
+	requestUrl := fmt.Sprintf(
+		"%s?grant_type=client_credentials&client_id=%s&client_secret=%s",
+		twitchData.EndpointAuth,
+		twitchData.ClientId,
+		twitchData.ClientSecret)
+	req, reqErr := http.NewRequest("POST", requestUrl, nil)
+	if reqErr != nil {
+		log.Fatalf("Unable to get Twitch token: %v", reqErr.Error())
+	}
+	return req
+}
+
 // Fetch live stream(s) by user login
-func GetStreamByUser() *http.Request {
-	twitchData := GetTwitchData()
+func getLiveStreamByUserRequest() *http.Request {
+	twitchData := getTwitchRequestData()
 	requestUrl := fmt.Sprintf(
 		"%s?user_login=%s",
 		twitchData.EndpointStream,
@@ -63,17 +67,15 @@ func GetStreamByUser() *http.Request {
 	return req
 }
 
-// Construct HTTP request to fetch Twitch token
-func GetTokenRequest() *http.Request {
-	twitchData := GetTwitchData()
-	requestUrl := fmt.Sprintf(
-		"%s?grant_type=client_credentials&client_id=%s&client_secret=%s",
-		twitchData.EndpointAuth,
-		twitchData.ClientId,
-		twitchData.ClientSecret)
-	req, reqErr := http.NewRequest("POST", requestUrl, nil)
-	if reqErr != nil {
-		log.Fatalf("Unable to get Twitch token: %v", reqErr)
+// Check if Twitch stream is live
+func GetTwitchStream() bool {
+	streamReq := getLiveStreamByUserRequest()
+	streamRes := ExecuteRequest(streamReq)
+	streamData := streamRes["data"]
+	if streamData != nil {
+		log.Print("Twitch steam is live!")
+		return true
 	}
-	return req
+	log.Print("Twitch steam currently offline.")
+	return false
 }
