@@ -7,6 +7,6 @@ require (
 	github.com/joho/godotenv v1.3.0
 	github.com/kib357/less-go v0.0.0-20170821073536-9f0400998d19
 	golang.org/x/net v0.0.0-20200904194848-62affa334b73
-	google.golang.org/api v0.32.0
+	google.golang.org/api v0.33.0
 	gopkg.in/olebedev/go-duktape.v2 v2.0.0-20170111160100-7da705daddc2 // indirect
 )
