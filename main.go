@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/gorilla/mux"
-	"github.com/hackersandslackers/birdteams/api"
 	"github.com/kib357/less-go"
+	"github.com/toddbirchard/birdteams/api"
 	"html/template"
 	"log"
 	"net/http"
