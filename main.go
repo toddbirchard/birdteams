@@ -77,6 +77,6 @@ func main() {
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
-	log.Printf("Server now live and listening at %s...", "127.0.0.1:9300")
+	log.Printf("Server now live and listening at %s...", "127.0.0.1:9400")
 	log.Fatal(client.ListenAndServe())
 }
