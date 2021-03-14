@@ -15,6 +15,7 @@
 vendor/
 
 # Secrets
+.env.old
 .env
 gcloud.json
 

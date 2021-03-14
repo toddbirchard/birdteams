@@ -10,6 +10,11 @@ import (
 	"strings"
 )
 
+// Go lib may be outdated:
+// google.golang.org/api/googleapi/transport
+
+// https://developers.google.com/youtube/v3/docs/search/list?apix_params=%7B%22part%22%3A%5B%22id%22%2C%22snippet%22%5D%2C%22channelId%22%3A%22UCZo-bCtK0xtclNm7HzksuWA%22%2C%22order%22%3A%22date%22%2C%22type%22%3A%5B%22video%22%5D%7D#go
+
 type YoutubeVideo struct {
 	Title          string
 	Description    string
