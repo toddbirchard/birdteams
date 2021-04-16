@@ -7,7 +7,7 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/joho/godotenv v1.3.0
 	github.com/kib357/less-go v0.0.0-20170821073536-9f0400998d19
-	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110
+	golang.org/x/net e915ea6b2b7d
 	golang.org/x/oauth2 v0.0.0-20210313182246-cd4f82c27b84 // indirect
 	golang.org/x/sys v0.0.0-20210313202042-bd2e13477e9c // indirect
 	google.golang.org/api v0.41.0
