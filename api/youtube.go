@@ -87,6 +87,15 @@ func getVideosFromChannel(service *youtube.Service, response *youtube.ChannelLis
 	return videos
 }
 
+func handleError(err error, message string) {
+	if message == "" {
+		message = "Error making API call"
+	}
+	if err != nil {
+		log.Fatalf(message + ": %v", err.Error())
+	}
+}
+
 
 func GetYoutubeVideos() []YoutubeVideo {
 	ctx := context.Background()
@@ -95,9 +104,7 @@ func GetYoutubeVideos() []YoutubeVideo {
 		option.WithScopes(youtube.YoutubeReadonlyScope),
 		option.WithAPIKey(os.Getenv("YOUTUBE_API_KEY")))
 
-	if err != nil {
-		log.Fatalf( "Error fetching videos: %v", err.Error())
-	}
+	handleError(err, "Error creating YouTube client")
 
 	channelResponse := getYoutubeChannel(service, "contentDetails")
 	videos := getVideosFromChannel(service, channelResponse)
