@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-// Dynamic template values
+// SiteData Dynamic template values
 type SiteData struct {
 	Title      string
 	TagLine    string
@@ -23,7 +23,7 @@ type SiteData struct {
 	Stream     bool
 }
 
-// Render homepage template
+// IndexHandler Render homepage template
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
 	data := SiteData{
@@ -42,7 +42,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// Compile and minify .LESS files
+// CompileStylesheets Compile and minify .LESS files
 func CompileStylesheets() {
 	staticFolder := "./static/styles/%s"
 	err := less.RenderFile(
@@ -54,7 +54,7 @@ func CompileStylesheets() {
 	}
 }
 
-// Route declaration
+// Router Route declaration
 func Router() *mux.Router {
 	staticDir := "/static/"
 	// Page routes

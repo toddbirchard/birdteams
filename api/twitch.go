@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-// Twitch API & account data
+// TwitchRequestData Twitch API & account data
 type TwitchRequestData struct {
 	EndpointAuth   string
 	EndpointStream string
@@ -67,7 +67,7 @@ func getLiveStreamByUserRequest() *http.Request {
 	return req
 }
 
-// Check if Twitch stream is live
+// GetTwitchStream Check if Twitch stream is live
 func GetTwitchStream() bool {
 	streamReq := getLiveStreamByUserRequest()
 	streamRes := ExecuteRequest(streamReq)

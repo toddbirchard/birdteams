@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-// Load environment variables
+// LoadEnv Load environment variables
 func LoadEnv() {
 	err := godotenv.Load()
 	if err != nil {
@@ -17,7 +17,7 @@ func LoadEnv() {
 	}
 }
 
-// Execute an HTTP request with a response
+// ExecuteRequest Execute an HTTP request with a response
 func ExecuteRequest(request *http.Request) map[string]interface{} {
 	// Construct HTTP request to fetch session data.
 	client := HttpClient()
@@ -45,7 +45,7 @@ func ExecuteRequest(request *http.Request) map[string]interface{} {
 	return response
 }
 
-// Generic HTTP client
+// HttpClient Generic HTTP client
 func HttpClient() *http.Client {
 	client := &http.Client{
 		Timeout: 30 * time.Second,
