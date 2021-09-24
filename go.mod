@@ -6,7 +6,7 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/joho/godotenv v1.3.0
 	github.com/kib357/less-go v0.0.0-20170821073536-9f0400998d19
-	golang.org/x/net v0.0.0-20210825183410-e898025ed96a
+	golang.org/x/net 3ad01bbaa167
 	google.golang.org/api v0.54.0
 )
 
