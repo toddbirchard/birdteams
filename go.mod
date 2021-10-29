@@ -7,7 +7,7 @@ require (
 	github.com/joho/godotenv v1.4.0
 	github.com/kib357/less-go v0.0.0-20170821073536-9f0400998d19
 	golang.org/x/net 3ad01bbaa167
-	google.golang.org/api v0.54.0
+	google.golang.org/api v0.60.0
 )
 
 require (
