@@ -1,6 +1,6 @@
 # Birdteams
 
-![Go](https://img.shields.io/badge/Go-1.17-blue.svg?logo=go&longCache=true&logoColor=white&colorB=88C0D0&style=flat-square&colorA=4c566a)
+![Go](https://img.shields.io/badge/Go-1.19-blue.svg?logo=go&longCache=true&logoColor=white&colorB=88C0D0&style=flat-square&colorA=4c566a)
 ![Mux](https://img.shields.io/badge/Mux-1.8-blue.svg?logo=go&longCache=true&logoColor=white&colorB=88C0D0&style=flat-square&colorA=4c566a)
 ![Less Go](https://img.shields.io/badge/Less--go-0.0.0-blue.svg?logo=go&longCache=true&logoColor=white&colorB=88C0D0&style=flat-square&colorA=4c566a)
 ![Google API](https://img.shields.io/badge/Google--API-0.31.0-blue.svg?logo=go&longCache=true&logoColor=white&colorB=88C0D0&style=flat-square&colorA=4c566a)
@@ -12,4 +12,4 @@
 
 ![Bird Teams](./.github/birdteams-share@2x.jpg)
 
-Cawwwww.
+CAAAWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW

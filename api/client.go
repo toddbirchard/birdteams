@@ -3,7 +3,7 @@ package api
 import (
 	"encoding/json"
 	"github.com/joho/godotenv"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"time"
@@ -27,7 +27,7 @@ func ExecuteRequest(request *http.Request) map[string]interface{} {
 	}
 
 	// Parse response data
-	data, dataErr := ioutil.ReadAll(res.Body)
+	data, dataErr := io.ReadAll(res.Body)
 	if dataErr != nil {
 		panic(dataErr)
 	}

@@ -2,20 +2,20 @@ package api
 
 import (
 	"fmt"
-	"golang.org/x/net/context"
 	"google.golang.org/api/option"
-	"google.golang.org/api/youtube/v3"
 	"log"
 	"os"
 	"strings"
+
+	"golang.org/x/net/context"
+	"google.golang.org/api/youtube/v3"
 )
 
-
 type YoutubeVideo struct {
-	Title          string
-	Description    string
-	Url            string
-	Thumbnail      string
+	Title       string
+	Description string
+	Url         string
+	Thumbnail   string
 }
 
 // Retrieve channel by ID
@@ -64,13 +64,13 @@ func getVideosFromChannel(service *youtube.Service, response *youtube.ChannelLis
 				videoThumbnail := playlistItem.Snippet.Thumbnails.High.Url
 				videoUrl := fmt.Sprintf("https://www.youtube.com/watch?v=%s", videoId)
 				video := YoutubeVideo{
-					Title: videoTitle,
+					Title:       videoTitle,
 					Description: videoDescription,
-					Thumbnail: videoThumbnail,
-					Url: videoUrl,
+					Thumbnail:   videoThumbnail,
+					Url:         videoUrl,
 				}
 				videos = append(videos, video)
-				}
+			}
 
 			// Set the token to retrieve the next page of results
 			// or exit the loop if all results have been retrieved.
@@ -83,16 +83,6 @@ func getVideosFromChannel(service *youtube.Service, response *youtube.ChannelLis
 	return videos
 }
 
-func handleError(err error, message string) {
-	if message == "" {
-		message = "Error making API call"
-	}
-	if err != nil {
-		log.Fatalf(message + ": %v", err.Error())
-	}
-}
-
-
 func GetYoutubeVideos() []YoutubeVideo {
 	ctx := context.Background()
 	service, err := youtube.NewService(
@@ -100,7 +90,9 @@ func GetYoutubeVideos() []YoutubeVideo {
 		option.WithScopes(youtube.YoutubeReadonlyScope),
 		option.WithAPIKey(os.Getenv("YOUTUBE_API_KEY")))
 
-	handleError(err, "Error creating YouTube client")
+	if err != nil {
+		log.Fatalf("Error fetching videos: %v", err.Error())
+	}
 
 	channelResponse := getYoutubeChannel(service, "contentDetails")
 	videos := getVideosFromChannel(service, channelResponse)

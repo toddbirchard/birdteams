@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gorilla/mux"
-	"github.com/kib357/less-go"
+	"github.com/slifer2015/less-go"
 	"github.com/toddbirchard/birdteams/api"
 	"html/template"
 	"log"
